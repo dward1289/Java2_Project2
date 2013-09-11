@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Java2_Project1</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="theHint">Enter NBA team city</string>
+    <string name="teamName">Team Name:</string>
+    <string name="theWin">Won:</string>
+    <string name="theLost">Lost:</string>
+    <string name="theRank">Rank:</string>
+    <string name="placeHolder">[][][][][][][]</string>
+    <string name="go">Go</string>
+
+</resources>

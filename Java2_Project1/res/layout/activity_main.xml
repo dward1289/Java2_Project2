@@ -1,0 +1,81 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent" 
+              android:layout_height="fill_parent" 
+              android:orientation="vertical" >
+
+    <EditText
+    	android:id="@+id/teamEntry"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:hint="@string/theHint" />
+
+    <Button
+        android:id="@+id/goBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go" 
+        android:onClick="startService"/>
+    
+    <TextView  
+    	android:text=""
+    	android:layout_width="wrap_content"  
+    	android:layout_height="wrap_content" />
+    
+    <TableLayout 
+    	android:id="@+id/statsLayout"  
+    	android:layout_width="match_parent"  
+    	android:layout_height="match_parent"  
+    	android:shrinkColumns="*"  
+    	android:stretchColumns="*">  
+           
+    <TableRow  
+        android:layout_height="wrap_content"  
+        android:id="@+id/teamRow"  
+        android:layout_width="match_parent">  
+        <TextView  
+            android:text="@string/teamName"/>  
+        <TextView 
+            android:id="@+id/teamTxt"            
+            android:text="@string/placeHolder"  
+            android:gravity="center_vertical"/>
+    </TableRow>
+        
+    <TableRow  
+        android:layout_height="wrap_content"  
+        android:id="@+id/rankRow"  
+        android:layout_width="match_parent"> 
+        <TextView  
+            android:text="@string/theRank"/>  
+        <TextView  
+            android:id="@+id/rankTxt"
+            android:text="@string/placeHolder"  
+            android:gravity="center_vertical"/>
+    </TableRow>  
+        
+    <TableRow  
+        android:layout_height="wrap_content"  
+        android:id="@+id/winRow"  
+        android:layout_width="match_parent"> 
+        <TextView  
+            android:text="@string/theWin"/>  
+        <TextView
+            android:id="@+id/winTxt"  
+            android:text="@string/placeHolder"   
+            android:gravity="center_vertical"/>
+    </TableRow> 
+        
+    <TableRow  
+        android:layout_height="wrap_content"  
+        android:id="@+id/lostRow"  
+        android:layout_width="match_parent"> 
+        <TextView  
+            android:text="@string/theLost"/>  
+        <TextView  
+            android:id="@+id/lostTxt"
+            android:text="@string/placeHolder"   
+            android:gravity="center_vertical"/>
+     </TableRow> 
+        
+	 </TableLayout>
+
+</LinearLayout>

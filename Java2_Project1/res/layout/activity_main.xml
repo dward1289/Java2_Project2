@@ -3,11 +3,11 @@
               android:layout_height="fill_parent" 
               android:orientation="vertical" >
 
-    <EditText
-    	android:id="@+id/teamEntry"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:hint="@string/theHint" />
+    <Spinner
+    	android:id="@+id/team_spinner"
+   		android:layout_width="fill_parent"
+    	android:layout_height="wrap_content" 
+    	android:entries="@array/city_array"/>
 
     <Button
         android:id="@+id/goBtn"

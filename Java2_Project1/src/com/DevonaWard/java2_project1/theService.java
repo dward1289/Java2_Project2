@@ -3,22 +3,21 @@ package com.DevonaWard.java2_project1;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+
 
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Message;
+import android.os.Messenger;
 import android.util.Log;
 
 
@@ -26,13 +25,12 @@ import android.util.Log;
 
 
 
-public class theService extends IntentService{
-	JSONArray teamStat;
-	ArrayList<String> teamRanks = new ArrayList<String>();
-	ArrayList<String> teamName = new ArrayList<String>();
-	ArrayList<String> teamArea = new ArrayList<String>();
-	ArrayList<String> teamDivision = new ArrayList<String>();
 
+public class theService extends IntentService{
+	Message message;
+	Messenger messenger;
+	URL actualURL;
+	Context context = this;
   public theService() {
       super("theService");
   } 
@@ -40,8 +38,13 @@ public class theService extends IntentService{
 
   @Override
   protected void onHandleIntent(Intent intent) {
-	  String theURL = "https://erikberg.com/nba/teams.json";
-	  URL actualURL;
+	  
+	try {
+		actualURL = new URL ("https://erikberg.com/nba/teams.json");
+	} catch (MalformedURLException e2) {
+		// TODO Auto-generated catch block
+		e2.printStackTrace();
+	}
 	  
 	  ConnectivityManager connectManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 	  NetworkInfo netInfo = connectManager.getActiveNetworkInfo();
@@ -64,20 +67,19 @@ public class theService extends IntentService{
 				  stringBuffer.append(response);
 			  }
 			  response = stringBuffer.toString();
-			  Log.i("THE DATA", response);
 			  
-			  URI[] uri = new URI[i];
-			  try {
-				  uri[0] = new URI(actualURL.toString());
-			  } catch (URISyntaxException e){
-				  e.printStackTrace();
-			  }
+			  
+			
 			  
 			  //Verify  JSON string
 			  JSONArray json = null;
 			  try{
 				  json = new JSONArray(response);
 				  Log.i("JSON IS HERE", "The json is valid");
+				  
+				  //Save json data
+				  writeRead.storeObjectFile(context, "teamsJSON", json.toString(), false);
+				  writeRead.storeStringFile(context, "teamsJSONString", json.toString(), false);
 			  }catch (JSONException e){
 				  Log.e("JSON storeJSON", e.getMessage().toString());
 			  }
@@ -93,7 +95,10 @@ public class theService extends IntentService{
 			  }
 		  }catch(MalformedURLException e){
 			  e.printStackTrace();
-	  }
+	  } catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
   }
 }

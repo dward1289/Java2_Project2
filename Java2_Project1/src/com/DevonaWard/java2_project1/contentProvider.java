@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 public class contentProvider extends ContentProvider {
 	public static final String AUTHORITY = "com.DevonaWard.Java2_Project1.contentProvider";
@@ -98,13 +99,45 @@ public class contentProvider extends ContentProvider {
 		case ITEMS:
 			
 			for(int i=0; i<teamArray.length(); i++){
-				
+				try{
+					field = teamArray.getJSONObject(i).getJSONObject("first_name");
+					result.addRow(new Object[] {i+1, field.get("last_name"), field.get("site")});
+				}catch(JSONException e){
+					e.printStackTrace();
+				}
 			}
 			
 		case ITEMS_ID:
+			String itemId = uri.getLastPathSegment();
+			Log.i("queryId", itemId);
 			
+			int index;
+			try{
+				index = Integer.parseInt(itemId);
+			}
+			catch (NumberFormatException e)
+			{
+				Log.e("query", "index format error");
+				break;
+			}
+			if(index <=0 || index > teamArray.length()){
+				Log.e("query", "index out of range for " + uri.toString());
+				break;
+			}
+			
+			try {
+				field = teamArray.getJSONObject(index-1).getJSONObject("first_name");
+				result.addRow(new Object[] {index, field.get("last_name"), field.get("site")});
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			break;
+			default:
+				Log.e("query", "invalid uri = " + uri.toString());
 		}
-		return null;
+		return result;
 
 	}
 
